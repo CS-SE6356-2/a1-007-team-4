@@ -15,11 +15,13 @@ class NamePrinter {
      */
     public void printNames() {
         String separator = "+";
+        String separator = ",";
 
         String[] names = {
                 "Phifong Phan",
                 "Name 2",
                 "Name 3",
+                "Hogan Steffes",
                 "Name 4",
                 "Name 5"};
 
