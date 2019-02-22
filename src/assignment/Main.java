@@ -9,17 +9,18 @@ public class Main {
 
 class NamePrinter {
     /**
-     * Prints the names of the group members separated by spaces.
+     * This method prints the concatenation of the elements with the delimiter. 
+     * For this case, the elements is the names of the team members and the delimiter is a dash.
+     * The output will have the names of all team members separated by a dash.
      */
     public void printNames() {
-        String separator = ";";
+        String separator = "-";
 
         String[] names = {
-                "Name 1",
-                "Name 2",
-                "Name 3",
-                "Andy Hudson",
-                "Name 5"};
+                "Phifong Phan",
+                "Stephen Mercado",
+                "Hogan Steffes",
+                "Andy Hudson"};
 
         System.out.println(String.join(separator, names));
     }
