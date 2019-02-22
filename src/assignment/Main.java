@@ -14,11 +14,11 @@ class NamePrinter {
      * The output will have the names of all team members separated by a dash.
      */
     public void printNames() {
-        String separator = ",";
+        String separator = "-";
 
         String[] names = {
                 "Phifong Phan",
-                "Name 2",
+                "Stephen Mercado",
                 "Hogan Steffes",
                 "Name 4",
                 "Name 5"};
