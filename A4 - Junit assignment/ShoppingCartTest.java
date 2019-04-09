@@ -13,7 +13,7 @@ public class ShoppingCartTest {
     }
 
     //Tests to see if the empty method empties the shopping cart properly.
-    //This is done by adding an item to the cart, using the empty method, then testing.
+    //This is done by adding an item to the cart, invoke the empty method, then testing.
     @Test
     public void testEmptyCart() throws Exception {
         testCart.addItem(soda);
