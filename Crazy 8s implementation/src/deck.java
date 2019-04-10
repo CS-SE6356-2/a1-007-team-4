@@ -2,13 +2,18 @@ import java.util.*;
 
 public class deck {
     //Create arraylist to hold a deck of cards
-    List<card> cards = new ArrayList<card>();
+    private List<card> cards = new ArrayList<card>();
 
+    // Initialization constructor
+    public deck(){
+        // Fill with cards
+        addCards();
+    }
     //Populate the arraylist with cards
-    void createDeck(){
-        for(int a =0; a<=3; a++)
+    private void addCards(){
+        for(int a = 0; a< 4; a++)
         {
-            for(int b =0; b<=12;b++)
+            for(int b = 0; b < 13;b++)
             {
                 cards.add(new card(a,b));
             }
@@ -16,17 +21,28 @@ public class deck {
     }
 
     //Using builtin shuffle to shuffle the deck of cards
-    void shuffleDeck(){
+    public void shuffleDeck(){
         Collections.shuffle(cards);
     }
 
-    //Locate the top most card from deck
-    void topCard(){
-
-    }
-
     //Draw the top most card from deck
-    card drawCard(){
-
+    public card pullTopCard(){
+        // Check empty
+        if(cards.size() == 0){
+            return null;
+        }
+        // Return top
+        return cards.remove(0);
     }
+    
+    //Draw the bottom most card from deck
+    public card pullBottomCard(){
+        // Check empty
+        if(cards.size() == 0){
+            return null;
+        }
+        // Return top
+        return cards.remove(cards.size() - 1);
+    }
+
 }
