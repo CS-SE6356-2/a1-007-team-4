@@ -1,4 +1,4 @@
-public class card{
+public class Card{
 
     // Type and value of card
     private int type, value;
@@ -8,10 +8,22 @@ public class card{
             "10", "Jack", "Queen", "King"};
 
     // Construction initializer
-    public card(int types, int values)
+    public Card(int type, int value)
     {
-        type = types;
-        value = values;
+        this.type = type;
+        this.value = value;
+    }
+
+    public String getRank(){
+        return rank[value];
+    }
+    
+    public int getValue(){
+        return value;
+    }
+    
+    public String getSuit(){
+        return suit[type];
     }
 
     // Express as rank and suit
