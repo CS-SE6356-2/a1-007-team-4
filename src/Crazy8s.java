@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Crazy8s extends SheddingGame
 {	
-	public void deal()
+	public void deal() //give 5 cards to each player
 	{
 		for (int i=0; i < 5; i++){
             for(int j=0; j < players.size(); j++){
@@ -13,7 +13,7 @@ public class Crazy8s extends SheddingGame
         discardPile.push(0, deck.drawTopCard());
 	}
 	
-	public void twoPlayerDeal()
+	public void twoPlayerDeal() //give 7 cards to each player
 	{
 		for (int i=0; i < 7; i++){
             for(int j=0; j < players.size(); j++){
@@ -24,7 +24,7 @@ public class Crazy8s extends SheddingGame
         discardPile.push(0, deck.drawTopCard());
 	}
 	
-	public Card lastCardPlayed()
+	public Card lastCardPlayed() //shows the last card played
 	{
 		return discardPile.peek();
 	}	
