@@ -12,15 +12,29 @@ public class CardGame
         this.players = players;
         deck = new Deck();
         deck.shuffle();
-        
-        for (int i=0; i < 5; i++){
+    }
+	
+	public void deal()
+	{
+		for (int i=0; i < 5; i++){
             for(int j=0; j < players.size(); j++){
                 players.get(j).addCard(deck.drawTopCard());
             }
         }
         
         discardPile.add(0, deck.drawTopCard());
-    }
+	}
+	
+	public void twoPlayerDeal()
+	{
+		for (int i=0; i < 7; i++){
+            for(int j=0; j < players.size(); j++){
+                players.get(j).addCard(deck.drawTopCard());
+            }
+        }
+        
+        discardPile.add(0, deck.drawTopCard());
+	}
 
     //Creates player
     public void createPlayer(Player player) {
@@ -43,7 +57,10 @@ public class CardGame
         Player player = new Player(playerName());
         createPlayer(player);
         //If playerCount == 2, give 7 cards to each player
-
+		if(playerCount == 2)
+			twoPlayerDeal();
+		else
+			deal();
         //Else, give 5 cards to each player
 
     }
