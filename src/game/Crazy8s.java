@@ -1,56 +1,40 @@
 package game;
-import java.util.*;
 
-import Player;
-import cards.Card;
+import java.util.ArrayList;
 
-public class Crazy8s extends SheddingGame
-{	
-	private void deal() //give 5 cards to each player
-	{
-		for (int i=0; i < 5; i++){
-            for(int j=0; j < players.size(); j++){
-                players.get(j).addCard(deck.drawTopCard());
-            }
-        }
-        
-        discardPile.push(0, deck.drawTopCard());
+import components.Player;
+
+public class Crazy8s extends CardGame {
+
+	// Initialize game from player names
+	public Crazy8s(ArrayList<Player> players) {
+		// Do CardGame initialization
+		super(players);
 	}
-	
-	private void twoPlayerDeal() //give 7 cards to each player
-	{
-		for (int i=0; i < 7; i++){
-            for(int j=0; j < players.size(); j++){
-                players.get(j).addCard(deck.drawTopCard());
-            }
-        }
-        
-        discardPile.push(0, deck.drawTopCard());
+
+	// Gives 5 cards to each player
+	protected void dealCards() {
+		// Clear each player's hand
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).clearHand();
+		}
+		// Deal 5 cards (7 if 2 players)
+		int cardAmt = 5;
+		if (players.size() == 2) {
+			cardAmt = 7;
+		}
+		for (int i = 0; i < cardAmt; i++) {
+			for (int j = 0; j < players.size(); j++) {
+				players.get(j).addCard(deck.drawTopCard());
+			}
+		}
+
+		// Put one on the discard to start
+		discardPile.push(deck.drawTopCard());
 	}
-	
-	public Card lastCardPlayed() //shows the last card played
-	{
-		return discardPile.peek();
-	}	
 
+	public static void main(String[] args) {
+		// Ask for numbers of players (between 2 and 7)
 
-    //Calls the method to create player and gives the new player starting hand.
-    public void startingHand(int playerCount) {
-        Player player = new Player(playerName());
-        createPlayer(player);
-        //If playerCount == 2, give 7 cards to each player
-		if(playerCount == 2)
-			twoPlayerDeal();
-		else
-			deal();
-        //Else, give 5 cards to each player
-
-    }
-
-    public static void main(String[] args){
-        //Ask for numbers of players (between 2 and 7)
-
-    }
+	}
 }
-
-

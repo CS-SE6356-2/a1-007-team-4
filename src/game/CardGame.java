@@ -1,36 +1,45 @@
 package game;
-import java.util.*;
 
-import Player;
-import cards.Deck;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
+
+import components.Player;
+import components.cards.Card;
+import components.cards.Deck;
 
 public abstract class CardGame {
-	protected Deck deck;
-	protected ArrayList<Player> players;
-	protected Queue<Player> turnOrder;
+
+	// Deck used by game
+	protected final Deck deck;
+	// Discard pile used by game
+	protected final Stack<Card> discardPile = new Stack<Card>();
+	// Players present in game
+	protected final ArrayList<Player> players;
+	// Order of players
+	private final Queue<Player> playerOrder;
+	// Input. TODO remove this
 	Scanner input = new Scanner(System.in);
 
+	// Initialization from player list
 	public CardGame(ArrayList<Player> players) {
+		// Set list
 		this.players = players;
-		for (Player p : players) {
-			turnOrder.add(p);
-		}
+		// Shuffle player order
+		Collections.shuffle(players);
+		// Make player order queue
+		playerOrder = new LinkedList<Player>(players);
+		// Make new deck
 		deck = new Deck();
-		deck.shuffle();
+		// Deal starting hands
+		dealCards();
 	}
 
-	public CardGame() {
-		deck = new Deck();
-		deck.shuffle();
-	}
-
-	abstract void deal();
-
-	// Creates player
-	public void createPlayer(Player player) {
-		players.add(player);
-		turnOrder.add(player);
-	}
+	// Deal cards to each player
+	protected abstract void dealCards();
 
 	// Enter the new player's name
 	public String playerName() {
@@ -43,10 +52,25 @@ public abstract class CardGame {
 		return name;
 	}
 
-	public Player nextPlayer() // gets next player and puts them at the back of the turn list
-	{
-		Player current = turnOrder.remove();
-		turnOrder.add(current);
+	// Get next active player
+	public Player getNextTurnPlayer() {
+		// Get next in queue
+		Player current = playerOrder.remove();
+		// Put in back of queue
+		playerOrder.add(current);
+		// Return player
 		return current;
 	}
+
+	// Play card
+	public void playCard(Card played) {
+		// Add to discard stack
+		discardPile.push(played);
+	}
+
+	// Get last card played
+	public Card lastCardPlayed() {
+		return discardPile.peek();
+	}
+
 }

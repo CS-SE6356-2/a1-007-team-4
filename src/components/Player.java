@@ -1,54 +1,64 @@
+package components;
+
 import java.util.*;
 
-import cards.Card;
+import components.cards.Card;
 
 public class Player {
-	private String name;
+	// Player name
+	private final String name;
+	// Cards in player's hand
+	private final ArrayList<Card> hand;
+	// Current score o player
 	private int score;
-	private ArrayList<Card> hand;
 
 	public Player(String name) {
 		this.name = name;
 		hand = new ArrayList<Card>();
 	}
 
+	// Name getter
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	protected int getScore() {
+	// Score getter
+	public int getScore() {
 		return score;
 	}
 
-	private void addPoints(int points) {
+	// Add to score
+	public void addPoints(int points) {
 		score += points;
 	}
 
+	// Hand getter
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
 
+	// Card getter
 	public Card getCard(int index) {
 		return hand.get(index);
 	}
 
+	// Add to hand
 	public void addCard(Card card) {
 		hand.add(card);
 	}
 
+	// Remove from hand
 	public Card removeCard(int index) {
 		return hand.remove(index);
 	}
 
-	public int size() {
-		return hand.size();
+	// Clear hand
+	public void clearHand() {
+		hand.clear();
 	}
 
-	public boolean empty() {
-		return hand.size() == 0;
+	// Size of hand
+	public int handSize() {
+		return hand.size();
 	}
 }

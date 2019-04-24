@@ -1,4 +1,5 @@
-package cards;
+package components.cards;
+
 import java.util.*;
 
 public class Deck {
@@ -9,6 +10,8 @@ public class Deck {
 	public Deck() {
 		// Fill with cards
 		generateFullDeck();
+		// Shuffle
+		shuffle();
 	}
 
 	// Populate the arraylist with cards
@@ -24,7 +27,11 @@ public class Deck {
 	public void shuffle() {
 		Collections.shuffle(deck);
 	}
-	//
+
+	// Get size of deck
+	public int size() {
+		return deck.size();
+	}
 
 	// Draw the top most card from deck
 	public Card drawTopCard() {

@@ -1,4 +1,4 @@
-package cards;
+package components.cards;
 
 public class Card {
 
@@ -15,14 +15,12 @@ public class Card {
 		this.value = value;
 	}
 
+	// Get rank of card
 	public String getRank() {
 		return rank[value];
 	}
 
-	public int getValue() {
-		return value;
-	}
-
+	// Get suit of card
 	public String getSuit() {
 		return suit[type];
 	}
