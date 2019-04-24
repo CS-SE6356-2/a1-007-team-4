@@ -1,4 +1,8 @@
+package game;
 import java.util.*;
+
+import Player;
+import cards.Card;
 
 public class Crazy8s extends SheddingGame
 {	

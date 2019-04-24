@@ -1,4 +1,9 @@
+package junit;
 import org.junit.Test;
+
+import Player;
+import cards.Card;
+import cards.Deck;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +15,7 @@ public class CardGameTest {
     //Tests to see if a card is properly created. For this test, should equal Ace of Hearts
     @Test
     public void testCardCreation() throws Exception {
-        assertEquals("Ace", testCart.getRank());
+        assertEquals("Ace", testCard.getRank());
 	assertEquals("Hearts", testCard.getSuit());
     }
 
