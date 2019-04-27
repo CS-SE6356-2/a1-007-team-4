@@ -37,6 +37,13 @@ public abstract class CardGame {
 		// Deal starting hands
 		dealCards();
 	}
+	
+	//initialize without knowing the players yet, can't deal because player numbers unknown
+	public CardGame()
+	{
+		playerOrder = new LinkedList<Player>();
+		deck = new Deck();
+	}
 
 	// Deal cards to each player
 	protected abstract void dealCards();
