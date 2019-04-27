@@ -11,6 +11,8 @@ public class Crazy8s extends CardGame {
 		// Do CardGame initialization
 		super(players);
 	}
+	
+	private String currentSuit;
 
 	// Gives 5 cards to each player
 	protected void dealCards() {
@@ -31,6 +33,47 @@ public class Crazy8s extends CardGame {
 
 		// Put one on the discard to start
 		discardPile.push(deck.drawTopCard());
+		updateSuit();
+	}
+	
+	protected void updateSuit()
+	{
+		currentSuit=lastCardPlayed().getSuit();
+	}
+	
+	protected boolean validCardSuit(Card c)
+	{
+		return (c.getSuit()==currentSuit);
+	}
+	
+	protected boolean validCardRank(Card c)
+	{
+		return (c.getRank()==lastCardPlayed().getRank());
+	}
+	
+	protected boolean playCard(Card c, player p) //determines whether a card can be played, then plays it if valid
+	{
+		if(c.getRank()=="8") //player plays an 8, gets to set suit
+		{
+			p.removeCard(c);
+			discardPile.push(c);
+			//TODO ask the player what the suit should be set to (don't use updateSuit here)
+			return true;
+		}
+		else if(validCardSuit(c)) //card matches suit
+		{
+			p.removeCard(c);
+			discardPile.push(c);
+			return true;
+		}
+		else if(validCardRank(c))
+		{
+			p.removeCard(c);
+			discardPile.push(c);
+			updateSuit();
+			return true;
+		}
+		else return false;
 	}
 
 	public static void main(String[] args) {
@@ -42,12 +85,17 @@ public class Crazy8s extends CardGame {
 			System.out.println("Player "+i);
 			String name = playerName();
 			System.out.println("Player "+i+" is "+name);
-			players.add(new player(name));
+			players.add(new Player(name));
 		}
 		for(player p : players) //copy from player list to turn order
 		{
 			playerOrder.add(p);
 		}
 		dealCards();
+		while(winner==null)//game is not over yet
+		{
+			Player current = getNextTurnPlayer();
+			//TODO ask the player which card to play, call playCard, update points, check for winner
+		}
 	}
 }

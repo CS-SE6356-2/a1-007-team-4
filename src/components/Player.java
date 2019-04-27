@@ -51,6 +51,11 @@ public class Player {
 	public Card removeCard(int index) {
 		return hand.remove(index);
 	}
+	
+	// Remove from hand given card itself
+	public void removeCard(Card c) {
+		hand.remove(c);
+	}
 
 	// Clear hand
 	public void clearHand() {

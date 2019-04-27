@@ -23,6 +23,8 @@ public abstract class CardGame {
 	private final Queue<Player> playerOrder;
 	// Input. TODO remove this
 	Scanner input = new Scanner(System.in);
+	//Player who has won. Null until game is over
+	protected Player winner = null;
 
 	// Initialization from player list
 	public CardGame(ArrayList<Player> players) {
