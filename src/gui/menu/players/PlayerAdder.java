@@ -67,8 +67,12 @@ public class PlayerAdder extends JComponent {
 
 	// Add player and make display
 	private void addPlayer(String name) {
-		// If already at capacity, don't
+		// If already at capacity, don't add
 		if (players.size() >= Player.MAX_PLAYERS) {
+			return;
+		}
+		// If name is empty, don't add
+		if (name.isBlank()) {
 			return;
 		}
 		// Make display
@@ -121,8 +125,4 @@ public class PlayerAdder extends JComponent {
 		// Return list
 		return ret;
 	}
-
-	// TODO:
-	// Add textbox for entering player name
-	// Add "Add player" button that creates a playerDisplay and adds to list
 }
