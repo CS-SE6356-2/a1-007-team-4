@@ -47,6 +47,7 @@ public class GameStateManager extends JComponent {
 	// Start game with player names
 	public void startGame(ArrayList<String> players) {
 		// TODO
+		System.out.println("Start Game: " + players);
 	}
 
 	// Get Texture loader

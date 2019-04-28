@@ -72,7 +72,8 @@ public class PlayerAdder extends JComponent {
 			return;
 		}
 		// Make display
-		PlayerDisplay disp = new PlayerDisplay(players.size(), name, xPos, yPos + yHei * players.size(), xWid, yHei);
+		PlayerDisplay disp = new PlayerDisplay(this, players.size(), name, xPos, yPos + yHei * players.size(), xWid,
+				yHei);
 		// Add display to list
 		players.add(disp);
 		// Add display to JComponent
@@ -80,6 +81,33 @@ public class PlayerAdder extends JComponent {
 		// Refresh
 		revalidate();
 		repaint();
+	}
+
+	// Remove player by display
+	public void removePlayer(PlayerDisplay disp) {
+		// Remove from list
+		players.remove(disp.getIndex());
+		// Remove from JFrame
+		remove(disp);
+		// Refresh all: Remove all, then re-add
+		// List to store player names in
+		ArrayList<String> tempNames = new ArrayList<String>();
+		while (players.size() > disp.getIndex()) {
+			// Remove from list
+			PlayerDisplay removed = players.remove(disp.getIndex());
+			// Remove from JFrame
+			remove(removed);
+			// Add name to names list
+			tempNames.add(removed.getName());
+		}
+		// All removed, re-add each name
+		for (String name : tempNames) {
+			addPlayer(name);
+		}
+		// Refresh
+		revalidate();
+		repaint();
+
 	}
 
 	// Get player names

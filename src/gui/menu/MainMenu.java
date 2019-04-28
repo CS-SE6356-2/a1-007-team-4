@@ -61,7 +61,7 @@ public class MainMenu extends JComponent {
 
 		// Initialize start button
 		JButton start = new JButton("Start Game");
-		start.setBounds(wid / 4, hei * 2 / 3, wid / 2, hei / 12);
+		start.setBounds(wid / 4, hei * 3 / 4, wid / 2, hei / 12);
 		// Configure to call pressStart on click
 		start.addActionListener(new ActionListener() {
 			@Override
