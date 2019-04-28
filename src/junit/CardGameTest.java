@@ -1,12 +1,12 @@
 package junit;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import components.Player;
 import components.cards.Card;
 import components.cards.Deck;
-
-import static org.junit.Assert.*;
 
 public class CardGameTest {
 	private Card testCard = new Card(1, 0);

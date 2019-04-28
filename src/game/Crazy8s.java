@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import components.Player;
+import components.cards.Card;
 
 public class Crazy8s extends CardGame {
 
@@ -51,7 +52,7 @@ public class Crazy8s extends CardGame {
 		return (c.getRank()==lastCardPlayed().getRank());
 	}
 	
-	protected boolean playCard(Card c, player p) //determines whether a card can be played, then plays it if valid
+	protected boolean playCard(Card c, Player p) //determines whether a card can be played, then plays it if valid
 	{
 		if(c.getRank()=="8") //player plays an 8, gets to set suit
 		{
@@ -74,28 +75,5 @@ public class Crazy8s extends CardGame {
 			return true;
 		}
 		else return false;
-	}
-
-	public static void main(String[] args) {
-		// Ask for numbers of players (between 2 and 7)
-		System.out.println("Enter number of players (Min=2 Max=7):");
-		int playerCount = input.nextInt();
-		for(int i=0; i<playerCount; i++) //get names frp players, create the player classes, add to player list
-		{
-			System.out.println("Player "+i);
-			String name = playerName();
-			System.out.println("Player "+i+" is "+name);
-			players.add(new Player(name));
-		}
-		for(player p : players) //copy from player list to turn order
-		{
-			playerOrder.add(p);
-		}
-		dealCards();
-		while(winner==null)//game is not over yet
-		{
-			Player current = getNextTurnPlayer();
-			//TODO ask the player which card to play, call playCard, update points, check for winner
-		}
 	}
 }

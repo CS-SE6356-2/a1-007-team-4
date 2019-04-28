@@ -1,10 +1,17 @@
 package components;
 
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
 
 import components.cards.Card;
 
 public class Player {
+	// Display colors
+	public static final Color[] DISP_COLS = new Color[] { Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN,
+			Color.ORANGE, Color.CYAN, Color.MAGENTA, Color.PINK };
+	// Max players
+	public static final int MAX_PLAYERS = 8;
+
 	// Player name
 	private final String name;
 	// Cards in player's hand
@@ -51,7 +58,7 @@ public class Player {
 	public Card removeCard(int index) {
 		return hand.remove(index);
 	}
-	
+
 	// Remove from hand given card itself
 	public void removeCard(Card c) {
 		hand.remove(c);

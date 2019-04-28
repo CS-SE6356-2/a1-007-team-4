@@ -37,7 +37,7 @@ public class MainMenu extends JComponent {
 		setLayout(null);
 
 		// Initialize player adder at position
-		playerAdder = new PlayerAdder(wid / 4, hei / 3, wid / 2, hei / 4);
+		playerAdder = new PlayerAdder(wid / 4, hei / 4, wid / 2, hei / 2);
 		// Add player adder
 		add(playerAdder);
 
@@ -61,7 +61,7 @@ public class MainMenu extends JComponent {
 
 		// Initialize start button
 		JButton start = new JButton("Start Game");
-		start.setBounds(wid / 3, hei * 2 / 3, wid / 3, hei / 12);
+		start.setBounds(wid / 4, hei * 2 / 3, wid / 2, hei / 12);
 		// Configure to call pressStart on click
 		start.addActionListener(new ActionListener() {
 			@Override
