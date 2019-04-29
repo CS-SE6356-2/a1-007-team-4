@@ -28,6 +28,8 @@ public class GameDisplay extends JComponent {
 	public GameDisplay(Crazy8s target, int x, int y, int w, int h, GameStateManager manager) {
 		game = target;
 		this.manager = manager;
+		// Set target
+		game.setRenderer(this);
 		// Set JComponent dimensions
 		setBounds(0, 0, w, h);
 		setPreferredSize(new Dimension(w, h));
