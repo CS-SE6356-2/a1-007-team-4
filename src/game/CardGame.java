@@ -131,7 +131,7 @@ public abstract class CardGame {
 			// Allocate points to winner
 			if (allocatePoints(player)) {
 				// Player wins!
-				// TODO
+				// Handled internally
 				return;
 			}
 			// Deal again, and refresh

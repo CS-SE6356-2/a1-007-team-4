@@ -50,8 +50,7 @@ public class Crazy8s extends CardGame {
 		{
 			p.removeCard(c);
 			playCardToDiscard(c, p);
-			// TODO ask the player what the suit should be set to (don't use updateSuit
-			// here)
+			// TODO ask the player what the suit should be set to
 			return true;
 		} else if (validCardSuit(c)) // card matches suit
 		{
