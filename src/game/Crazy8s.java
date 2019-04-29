@@ -57,20 +57,20 @@ public class Crazy8s extends CardGame {
 		if(c.getRank()=="8") //player plays an 8, gets to set suit
 		{
 			p.removeCard(c);
-			discardPile.push(c);
+			playCard(c);
 			//TODO ask the player what the suit should be set to (don't use updateSuit here)
 			return true;
 		}
 		else if(validCardSuit(c)) //card matches suit
 		{
 			p.removeCard(c);
-			discardPile.push(c);
+			playCard(c);
 			return true;
 		}
-		else if(validCardRank(c))
+		else if(validCardRank(c)) //card matches rank
 		{
 			p.removeCard(c);
-			discardPile.push(c);
+			playCard(c);
 			updateSuit();
 			return true;
 		}

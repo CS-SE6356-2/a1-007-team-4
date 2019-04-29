@@ -72,7 +72,7 @@ public class PlayerAdder extends JComponent {
 			return;
 		}
 		// If name is empty, don't add
-		if (name.isBlank()) {
+		if (name.isEmpty()) {
 			return;
 		}
 		// Make display
