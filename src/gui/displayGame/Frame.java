@@ -142,7 +142,7 @@ public final class Frame {
 		int xdif = (maxWid - minWid) / cards.size();
 		int handHei = getHandLoc(hei);
 		// Draw each card
-		for (int i = cards.size() - 1; i >= 0; i--) {
+		for (int i = 0; i < cards.size(); i++) {
 			cards.get(i).drawCardFront(g, minWid + xdif * i, handHei, man);
 		}
 	}
