@@ -42,7 +42,7 @@ public class Deck {
 	public Card drawTopCard() {
 		// Check empty
 		if (deck.size() == 0) {
-			return null;
+			throw new RuntimeException("Draw called on empty deck");
 		}
 		// Return top
 		return deck.remove(0);
@@ -52,7 +52,7 @@ public class Deck {
 	public Card drawBottomCard() {
 		// Check empty
 		if (deck.size() == 0) {
-			return null;
+			throw new RuntimeException("Draw called on empty deck");
 		}
 		// Return top
 		return deck.remove(deck.size() - 1);
