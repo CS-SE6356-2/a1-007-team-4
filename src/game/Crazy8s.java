@@ -34,6 +34,7 @@ public class Crazy8s extends CardGame {
 		discardPile.push(drawCard());
 	}
 
+	// Check valid suit or rank
 	protected boolean validCardSuit(Card c) {
 		return (c.getSuit() == lastCardPlayed().getSuit());
 	}
@@ -42,24 +43,25 @@ public class Crazy8s extends CardGame {
 		return (c.getRank() == lastCardPlayed().getRank());
 	}
 
+	// Play card by player
 	public boolean playCard(Card c, Player p) // determines whether a card can be played, then plays it if valid
 	{
 		if (c.getRank() == "8") // player plays an 8, gets to set suit
 		{
 			p.removeCard(c);
-			playCard(c);
+			playCardToDiscard(c, p);
 			// TODO ask the player what the suit should be set to (don't use updateSuit
 			// here)
 			return true;
 		} else if (validCardSuit(c)) // card matches suit
 		{
 			p.removeCard(c);
-			playCard(c);
+			playCardToDiscard(c, p);
 			return true;
 		} else if (validCardRank(c)) // card matches rank
 		{
 			p.removeCard(c);
-			playCard(c);
+			playCardToDiscard(c, p);
 			return true;
 		} else
 			return false;

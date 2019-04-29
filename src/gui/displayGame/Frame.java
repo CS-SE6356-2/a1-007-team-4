@@ -28,6 +28,8 @@ public final class Frame {
 	private static final Color playercol = new Color(255, 200, 127);
 	// Font (players)
 	private static final Font playerfnt = new Font("TimesRoman", Font.PLAIN, 24);
+	// Font (score)
+	private static final Font scorefnt = new Font("TimesRoman", Font.PLAIN, 12);
 	// Background color (between turns)
 	private static final Color betcol = new Color(127, 127, 127);
 	// Font (between turns)
@@ -56,16 +58,19 @@ public final class Frame {
 	}
 
 	// Static paint between turns method
-	public static void paintBetweenTurns(Graphics2D g, String name, int wid, int hei) {
+	public static void paintBetweenTurns(Graphics2D g, String str, int wid, int hei, boolean drawSecondLine) {
 		// Fill background
 		g.setColor(betcol);
 		g.fillRect(0, 0, wid, hei);
 		// Set font
 		g.setFont(betfnt);
 		// Draw name centered, with outline
-		TextFunctions.drawCenteredTextOutline(g, name + "'s Turn", Color.WHITE, Color.BLACK, wid / 2, hei / 2, 1);
-		// Draw "Click to Start", with outline
-		TextFunctions.drawCenteredTextOutline(g, "Click to Start", Color.WHITE, Color.BLACK, wid / 2, hei * 3 / 5, 1);
+		TextFunctions.drawCenteredTextOutline(g, str, Color.WHITE, Color.BLACK, wid / 2, hei / 2, 1);
+		if (drawSecondLine) {
+			// Draw "Click to Start", with outline
+			TextFunctions.drawCenteredTextOutline(g, "Click to Start", Color.WHITE, Color.BLACK, wid / 2, hei * 3 / 5,
+					1);
+		}
 	}
 
 	// Draw names
@@ -73,7 +78,7 @@ public final class Frame {
 		// Get top and bot heights
 		final int topHei = getGameSeparator(hei), botHei = getCardSeparator(hei);
 
-		// Draw each player's name
+		// Draw each player's name and score
 		for (int i = 0; i < players.size(); i++) {
 			// Find minX and maxX
 			int minX = wid * i / players.size();
@@ -98,6 +103,10 @@ public final class Frame {
 			g.setFont(playerfnt);
 			TextFunctions.drawCenteredTextOutline(g, players.get(i).getName(), Color.WHITE, Color.BLACK,
 					(maxX + minX) / 2, (topHei + botHei) / 2, 1);
+			// Draw score, centered
+			g.setFont(scorefnt);
+			TextFunctions.drawCenteredTextOutline(g, Integer.toString(players.get(i).getScore()) + " Points",
+					Color.WHITE, Color.BLACK, (maxX + minX) / 2, (topHei + botHei * 5) / 6, 1);
 
 		}
 	}

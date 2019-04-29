@@ -12,6 +12,9 @@ import gui.displayGame.GameDisplay;
 
 public abstract class CardGame {
 
+	// Winning point values
+	private static final int winningPoints = 100;
+
 	// Deck used by game
 	protected final Deck deck;
 	// Discard pile used by game
@@ -68,6 +71,37 @@ public abstract class CardGame {
 	// Deal cards to each player
 	protected abstract void dealCards();
 
+	// Allocate points to player. Returns if player wins
+	protected boolean allocatePoints(Player p) {
+		// Get point total from each
+		int pointTotal = 0;
+		// Add points of remaining cards to each
+		for (Player player : players) {
+			// Loop through hand and add card values
+			for (Card c : player.getHand()) {
+				pointTotal += c.getPoints();
+			}
+		}
+		// Add points to player
+		p.addPoints(pointTotal);
+
+		// If above value, wins
+		if (p.getScore() >= winningPoints) {
+			// Set display
+			if (render != null) {
+				render.setWinningScreen(p.getName() + " Wins!");
+			}
+			return true;
+		}
+
+		// Set scoring screen
+		if (render != null) {
+			render.setScoringScreen(p.getName() + " Scored " + pointTotal + " points.");
+		}
+		// Return game still running
+		return false;
+	}
+
 	// Do next turn
 	protected void nextTurn() {
 		// Set active player
@@ -88,12 +122,24 @@ public abstract class CardGame {
 		return current;
 	}
 
-	// Play card
-	public void playCard(Card played) {
+	// Play card to pile
+	protected void playCardToDiscard(Card played, Player player) {
 		// Add to discard stack
 		discardPile.push(played);
-		// Do next turn
-		nextTurn();
+		// Check if hand empty
+		if (player.handSize() == 0) {
+			// Allocate points to winner
+			if (allocatePoints(player)) {
+				// Player wins!
+				// TODO
+				return;
+			}
+			// Deal again, and refresh
+			dealCards();
+		} else {
+			// Do next turn
+			nextTurn();
+		}
 	}
 
 	// Get last card played

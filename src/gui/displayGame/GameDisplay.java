@@ -22,7 +22,9 @@ public class GameDisplay extends JComponent {
 	// Game tracking
 	private final Crazy8s game;
 	// Between turn name display (null for not between turns)
-	private String betweenTurnName = null;
+	private String betweenTurnString = null;
+
+	private boolean gameIsOver = false;
 
 	// Game and size constructor
 	public GameDisplay(Crazy8s target, int x, int y, int w, int h, GameStateManager manager) {
@@ -64,9 +66,26 @@ public class GameDisplay extends JComponent {
 
 	// Set waiting player
 	public void setWaitingPlayerName(String set) {
-		betweenTurnName = set;
+		// Set to text
+		betweenTurnString = set + "'s Turn";
 		// Repaint
 		repaint();
+	}
+
+	// Set won
+	public void setWinningScreen(String set) {
+		// Game is over
+		gameIsOver = true;
+		betweenTurnString = set;
+	}
+
+	// Set scored
+	public void setScoringScreen(String set) {
+		// Set to text
+		betweenTurnString = set;
+		// Repaint
+		repaint();
+
 	}
 
 	// Render board
@@ -76,8 +95,8 @@ public class GameDisplay extends JComponent {
 		Graphics2D g = (Graphics2D) graphics;
 
 		// If between turns, wait until player is ready
-		if (betweenTurnName != null) {
-			Frame.paintBetweenTurns(g, betweenTurnName, getWidth(), getHeight());
+		if (betweenTurnString != null) {
+			Frame.paintBetweenTurns(g, betweenTurnString, getWidth(), getHeight(), gameIsOver);
 			return;
 		}
 		// Draw frame
@@ -96,10 +115,13 @@ public class GameDisplay extends JComponent {
 	// Clicked at location on screen
 	private void mousePressed(int x, int y) {
 		// If between turns, clear
-		if (betweenTurnName != null) {
-			betweenTurnName = null;
-			// Re-render
-			repaint();
+		if (betweenTurnString != null) {
+			// Can only click off if game is not over
+			if (!gameIsOver) {
+				betweenTurnString = null;
+				// Re-render
+				repaint();
+			}
 			return;
 		}
 		// Check if clicked on deck

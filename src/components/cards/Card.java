@@ -35,6 +35,20 @@ public class Card {
 		return suit[type];
 	}
 
+	// Get point value
+	public int getPoints() {
+		// 8's are 50
+		if (value == 7) {
+			return 50;
+		}
+		// Face values are 10
+		if (value == 0 || value > 9) {
+			return 10;
+		}
+		// Return card value
+		return value + 1;
+	}
+
 	// Express as rank and suit
 	public String toString() {
 		return "(" + rank[value] + " of " + suit[type] + ")";
