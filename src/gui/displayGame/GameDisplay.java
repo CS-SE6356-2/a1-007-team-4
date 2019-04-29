@@ -5,9 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import components.cards.Card;
 import game.Crazy8s;
 import gui.GameStateManager;
 
@@ -85,6 +87,8 @@ public class GameDisplay extends JComponent {
 		Frame.drawDiscard(g, getWidth(), getHeight(), game.getDiscard(), manager);
 		// Draw deck
 		Frame.drawDeck(g, getWidth(), getHeight(), game.getDeck(), manager);
+		// Draw hand
+		Frame.drawHand(g, getWidth(), getHeight(), game.getActive(), manager);
 	}
 
 	// Clicked at location on screen
@@ -96,8 +100,72 @@ public class GameDisplay extends JComponent {
 			repaint();
 			return;
 		}
-		// TODO
+		// Check if clicked on deck
+		if (clickedDeck(x, y)) {
+			// Done
+			return;
+		}
+		// Check if clicked on hand
+		if (clickedCard(x, y)) {
+			// Done
+			return;
+		}
+
+		// Print coordinates for fun
 		System.out.println(x + " " + y);
 	}
 
+	// Check if clicked on deck
+	private boolean clickedDeck(int x, int y) {
+		int deckX = getWidth() / 2;
+		int deckY = Frame.getDeckLoc(getHeight());
+		// Check if out range
+		if (Math.abs(x - deckX) > Card.pxWid / 2) {
+			return false;
+		}
+		if (Math.abs(y - deckY) > Card.pxHei / 2) {
+			return false;
+		}
+
+		// In range. Draw card
+		game.getActive().addCard(game.drawCard());
+		// Repaint
+		repaint();
+		// Clicked
+		return true;
+	}
+
+	// Check if clicked on cards in hand
+	private boolean clickedCard(int x, int y) {
+		// Get active player's hand
+		ArrayList<Card> cards = game.getActive().getHand();
+		// Get positions
+		int minWid = getWidth() / 12, maxWid = getWidth() * 11 / 12;
+		int xdif = (maxWid - minWid) / cards.size();
+		int handHei = Frame.getHandLoc(getHeight());
+		// Check each card
+		for (int i = cards.size() - 1; i >= 0; i--) {
+			// Get ranges
+			int cardX = minWid + xdif * i;
+			// Check if out of range
+			if (Math.abs(x - cardX) > Card.pxWid / 2) {
+				continue;
+			}
+			if (Math.abs(y - handHei) > Card.pxHei / 2) {
+				continue;
+			}
+
+			// Clicked on card in index i. Try to play
+			if (game.playCard(cards.get(i), game.getActive())) {
+				// Repaint
+				repaint();
+				// Clicked
+				return true;
+			}
+		}
+
+		// None found, return false
+		return false;
+
+	}
 }

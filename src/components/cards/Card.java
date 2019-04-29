@@ -14,6 +14,11 @@ public class Card {
 	private static final String[] rank = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen",
 			"King" };
 
+	// Card width in px
+	public static final int pxWid = 71;
+	// Card height in px
+	public static final int pxHei = 95;
+
 	// Construction initializer
 	public Card(int type, int value) {
 		this.type = type;

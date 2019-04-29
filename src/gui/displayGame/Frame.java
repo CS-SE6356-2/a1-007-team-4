@@ -124,23 +124,42 @@ public final class Frame {
 		deck.drawDeck(g, centerX, centerY, man);
 	}
 
-	// Get deck position
-	public static int getDeckLoc(int hei) {
-		return (int) (0.9 * hei);
+	// Draw hand
+	public static void drawHand(Graphics2D g, int wid, int hei, Player active, GameStateManager man) {
+		// Get cards
+		ArrayList<Card> cards = active.getHand();
+		// Get positions
+		int minWid = wid / 12, maxWid = wid * 11 / 12;
+		int xdif = (maxWid - minWid) / cards.size();
+		int handHei = getHandLoc(hei);
+		// Draw each card
+		for (int i = cards.size() - 1; i >= 0; i--) {
+			cards.get(i).drawCardFront(g, minWid + xdif * i, handHei, man);
+		}
 	}
 
 	// Get discard pile position
 	public static int getDiscardLoc(int hei) {
-		return (int) (0.3 * hei);
+		return (int) (0.2 * hei);
 	}
 
 	// Get game separator position
 	public static int getGameSeparator(int hei) {
-		return (int) (0.6 * hei);
+		return (int) (0.45 * hei);
 	}
 
 	// Get card separator position
 	public static int getCardSeparator(int hei) {
+		return (int) (0.55 * hei);
+	}
+
+	// Get hand position
+	public static int getHandLoc(int hei) {
 		return (int) (0.7 * hei);
+	}
+
+	// Get deck position
+	public static int getDeckLoc(int hei) {
+		return (int) (0.9 * hei);
 	}
 }
