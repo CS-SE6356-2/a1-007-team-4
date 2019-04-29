@@ -9,19 +9,23 @@ import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 
 import game.Crazy8s;
+import gui.GameStateManager;
 
 public class GameDisplay extends JComponent {
 	// JComponent serial ID
 	private static final long serialVersionUID = 1L;
 
+	// Manager
+	private final GameStateManager manager;
 	// Game tracking
 	private final Crazy8s game;
 	// Between turn name display (null for not between turns)
-	private String betweenTurnName = "TEST";
+	private String betweenTurnName = null;
 
 	// Game and size constructor
-	public GameDisplay(Crazy8s target, int x, int y, int w, int h) {
+	public GameDisplay(Crazy8s target, int x, int y, int w, int h, GameStateManager manager) {
 		game = target;
+		this.manager = manager;
 		// Set JComponent dimensions
 		setBounds(0, 0, w, h);
 		setPreferredSize(new Dimension(w, h));
@@ -54,6 +58,14 @@ public class GameDisplay extends JComponent {
 		});
 	}
 
+	// Set waiting player
+	public void setWaitingPlayerName(String set) {
+		betweenTurnName = set;
+		// Repaint
+		repaint();
+	}
+
+	// Render board
 	@Override
 	public void paint(Graphics graphics) {
 		// Cast to graphics2D
@@ -66,6 +78,13 @@ public class GameDisplay extends JComponent {
 		}
 		// Draw frame
 		Frame.paintFrame(g, getWidth(), getHeight());
+		// Draw names
+		Frame.paintNames(g, getWidth(), getHeight(), game.getPlayers(), game.getPlayers().indexOf(game.getActive()));
+
+		// Draw discard
+		Frame.drawDiscard(g, getWidth(), getHeight(), game.getDiscard(), manager);
+		// Draw deck
+		Frame.drawDeck(g, getWidth(), getHeight(), game.getDeck(), manager);
 	}
 
 	// Clicked at location on screen

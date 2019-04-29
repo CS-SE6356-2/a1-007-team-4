@@ -1,8 +1,11 @@
 package components.cards;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import gui.GameStateManager;
 
 public class Deck {
 	// Create arraylist to hold a deck of cards
@@ -73,5 +76,26 @@ public class Deck {
 		ret += "]";
 		// Return constructed string
 		return ret;
+	}
+
+	// Add all remaining cards to this deck
+	public void addAll(Deck other) {
+		// Add all cards to list
+		deck.addAll(other.deck);
+
+	}
+
+	// Add card to deck
+	public void addCard(Card card) {
+		deck.add(card);
+	}
+
+	// Draw deck at position
+	public void drawDeck(Graphics2D g, int cx, int cy, GameStateManager man) {
+		// Draw cards
+		for (int i = deck.size() / 4; i >= 0; i--) {
+			Card.drawCardBack(g, cx + 2 * i, cy + 2 * i, man);
+		}
+
 	}
 }

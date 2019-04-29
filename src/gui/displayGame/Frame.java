@@ -5,7 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.Stack;
 
+import components.Player;
+import components.cards.Card;
+import components.cards.Deck;
+import gui.GameStateManager;
 import util.TextFunctions;
 
 public final class Frame {
@@ -18,6 +24,10 @@ public final class Frame {
 
 	// Background color (game)
 	private static final Color bgcol = new Color(255, 200, 127);
+	// Background color (players)
+	private static final Color playercol = new Color(255, 200, 127);
+	// Font (players)
+	private static final Font playerfnt = new Font("TimesRoman", Font.PLAIN, 24);
 	// Background color (between turns)
 	private static final Color betcol = new Color(127, 127, 127);
 	// Font (between turns)
@@ -56,6 +66,72 @@ public final class Frame {
 		TextFunctions.drawCenteredTextOutline(g, name + "'s Turn", Color.WHITE, Color.BLACK, wid / 2, hei / 2, 1);
 		// Draw "Click to Start", with outline
 		TextFunctions.drawCenteredTextOutline(g, "Click to Start", Color.WHITE, Color.BLACK, wid / 2, hei * 3 / 5, 1);
+	}
+
+	// Draw names
+	public static void paintNames(Graphics2D g, int wid, int hei, ArrayList<Player> players, int index) {
+		// Get top and bot heights
+		final int topHei = getGameSeparator(hei), botHei = getCardSeparator(hei);
+
+		// Draw each player's name
+		for (int i = 0; i < players.size(); i++) {
+			// Find minX and maxX
+			int minX = wid * i / players.size();
+			int maxX = wid * (i + 1) / players.size();
+			// Fill background with player color (if active), or playercol (if not)
+			if (i == index) {
+				g.setColor(Player.DISP_COLS[i]);
+			} else {
+				g.setColor(playercol);
+
+			}
+			g.fillRect(minX, topHei, maxX - minX, botHei - topHei);
+			// Draw stroke at points
+			g.setColor(sepcol);
+			Stroke old = g.getStroke();
+			g.setStroke(new BasicStroke(3));
+			g.drawLine(minX, topHei, minX, botHei);
+			g.drawLine(maxX, topHei, maxX, botHei);
+			// Restore stroke
+			g.setStroke(old);
+			// Draw name, centered
+			g.setFont(playerfnt);
+			TextFunctions.drawCenteredTextOutline(g, players.get(i).getName(), Color.WHITE, Color.BLACK,
+					(maxX + minX) / 2, (topHei + botHei) / 2, 1);
+
+		}
+	}
+
+	// Draw discard pile
+	public static void drawDiscard(Graphics2D g, int wid, int hei, Stack<Card> discards, GameStateManager man) {
+		// Get center location
+		int centerX = wid / 2;
+		int centerY = getDiscardLoc(hei);
+		// Draw cards behind
+		for (int i = discards.size() / 4; i > 0; i--) {
+			Card.drawCardBack(g, centerX + 2 * i, centerY + 2 * i, man);
+		}
+		// Draw front card
+		discards.peek().drawCardFront(g, centerX, centerY, man);
+	}
+
+	// Draw deck
+	public static void drawDeck(Graphics2D g, int wid, int hei, Deck deck, GameStateManager man) {
+		// Get center location
+		int centerX = wid / 2;
+		int centerY = getDeckLoc(hei);
+		// Draw deck
+		deck.drawDeck(g, centerX, centerY, man);
+	}
+
+	// Get deck position
+	public static int getDeckLoc(int hei) {
+		return (int) (0.9 * hei);
+	}
+
+	// Get discard pile position
+	public static int getDiscardLoc(int hei) {
+		return (int) (0.3 * hei);
 	}
 
 	// Get game separator position

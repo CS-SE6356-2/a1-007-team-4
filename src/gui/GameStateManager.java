@@ -64,7 +64,7 @@ public class GameStateManager extends JComponent {
 		}
 		// Add new game
 		game = new Crazy8s(players);
-		add(new GameDisplay(game, 0, 0, getWidth(), getHeight()));
+		add(new GameDisplay(game, 0, 0, getWidth(), getHeight(), this));
 		// Refresh display
 		revalidate();
 		repaint();

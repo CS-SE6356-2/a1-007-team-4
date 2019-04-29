@@ -1,5 +1,10 @@
 package components.cards;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import gui.GameStateManager;
+
 public class Card {
 
 	// Type and value of card
@@ -28,6 +33,24 @@ public class Card {
 	// Express as rank and suit
 	public String toString() {
 		return "(" + rank[value] + " of " + suit[type] + ")";
+	}
+
+	// Draw front of card
+	public void drawCardFront(Graphics2D g, int cx, int cy, GameStateManager man) {
+		// Get image
+		BufferedImage front = man.getTextures().getImage("cards/" + rank[value] + suit[type] + ".png");
+		// Draw centered on position
+		g.drawImage(front, cx - front.getWidth() / 2, cy - front.getHeight() / 2, null);
+
+	}
+
+	// Draw back of card
+	public static void drawCardBack(Graphics2D g, int cx, int cy, GameStateManager man) {
+		// Get image
+		BufferedImage back = man.getTextures().getImage("cards/back.png");
+		// Draw centered on position
+		g.drawImage(back, cx - back.getWidth() / 2, cy - back.getHeight() / 2, null);
+
 	}
 
 }
