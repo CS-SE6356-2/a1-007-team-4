@@ -1,12 +1,14 @@
 package game;
 
 import java.util.ArrayList;
-
+import javax.swing.JOptionPane;
 import components.Player;
 import components.cards.Card;
 
 public class Crazy8s extends CardGame {
 
+	protected String currentSuit;
+	
 	// Initialize game from player names
 	public Crazy8s(ArrayList<Player> players) {
 		// Do CardGame initialization
@@ -32,15 +34,21 @@ public class Crazy8s extends CardGame {
 
 		// Put one on the discard to start
 		discardPile.push(drawCard());
+		updateSuit();
 	}
 
 	// Check valid suit or rank
 	protected boolean validCardSuit(Card c) {
-		return (c.getSuit() == lastCardPlayed().getSuit());
+		return (c.getSuit() == currentSuit);
 	}
 
 	protected boolean validCardRank(Card c) {
 		return (c.getRank() == lastCardPlayed().getRank());
+	}
+	
+	protected void updateSuit()
+	{
+		currentSuit=lastCardPlayed().getSuit();
 	}
 
 	// Play card by player
@@ -50,7 +58,10 @@ public class Crazy8s extends CardGame {
 		{
 			p.removeCard(c);
 			playCardToDiscard(c, p);
-			// TODO ask the player what the suit should be set to
+			//ask the player what the suit should be set to
+			String[] options = new String[] { "Spades", "Hearts", "Diamonds", "Clubs" };
+			int suit = JOptionPane.showOptionDialog(null, "Select Suit", "8 Card Played", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+			currentSuit=options[suit];
 			return true;
 		} else if (validCardSuit(c)) // card matches suit
 		{
@@ -61,6 +72,7 @@ public class Crazy8s extends CardGame {
 		{
 			p.removeCard(c);
 			playCardToDiscard(c, p);
+			updateSuit();
 			return true;
 		} else
 			return false;
