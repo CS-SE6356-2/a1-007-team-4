@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -14,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import components.Player;
+import util.TextFunctions;
 
 public class PlayerDisplay extends JButton {
 	// JComponent serial ID
@@ -82,11 +82,8 @@ public class PlayerDisplay extends JButton {
 
 		// Set font
 		g.setFont(nameFont);
-		// Get font metrics
-		FontMetrics metrics = g.getFontMetrics();
-		// Draw name centered vertically
-		g.drawString(name, getWidth() / 4, getHeight() / 2 - metrics.getHeight() / 2 + metrics.getAscent());
-
+		// Draw left align name (centered vertically)
+		TextFunctions.drawLAText(g, name, getWidth() / 4, getHeight() / 2);
 		// Paint children
 		super.paintChildren(graphics);
 	}
