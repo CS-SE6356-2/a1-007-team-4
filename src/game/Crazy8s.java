@@ -61,7 +61,10 @@ public class Crazy8s extends CardGame {
 			//ask the player what the suit should be set to
 			String[] options = new String[] { "Spades", "Hearts", "Diamonds", "Clubs" };
 			int suit = JOptionPane.showOptionDialog(null, "Select Suit", "8 Card Played", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+			// Update suit required
 			currentSuit=options[suit];
+			// Update suit on card
+			c.setSuit(options[suit]);
 			return true;
 		} else if (validCardSuit(c)) // card matches suit
 		{

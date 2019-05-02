@@ -35,6 +35,16 @@ public class Card {
 		return suit[type];
 	}
 
+	public void setSuit(String set) {
+		for (int i = 0; i < suit.length; i++) {
+			if (suit[i].equals(set)) {
+				type = i;
+				return;
+			}
+		}
+		throw new RuntimeException("Unidentified Suit: " + set);
+	}
+
 	// Get point value
 	public int getPoints() {
 		// 8's are 50
